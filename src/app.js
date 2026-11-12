@@ -4,7 +4,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const config = require("./config");
 const { pool } = require("./db");
-const { asyncRoute, errorHandler, HttpError } = require("./http");
+const { asyncRoute, errorHandler } = require("./http");
 const authRoutes = require("./routes/auth");
 const publicRoutes = require("./routes/public");
 const applicantRoutes = require("./routes/applicant");
@@ -19,10 +19,7 @@ app.disable("x-powered-by");
 app.use(helmet());
 app.use(
   cors({
-    origin(origin, callback) {
-      if (!origin || config.corsOrigins.includes(origin)) return callback(null, true);
-      callback(new HttpError(403, "This website is not allowed to call the API.", "CORS_DENIED"));
-    },
+    origin: "*",
     credentials: false,
   })
 );
