@@ -1,0 +1,33 @@
+{
+  "name": "kmc-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KMC Tech Solutions Express and MySQL API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "db:schema": "node scripts/apply-schema.js",
+    "db:check": "node scripts/check-mysql.js",
+    "db:migrate": "node scripts/migrate-mongodb.js",
+    "db:bootstrap-admin": "node scripts/bootstrap-admin.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.15.0",
+    "mysql2": "^3.14.0",
+    "multer": "^2.0.0",
+    "nodemailer": "^6.10.0",
+    "zod": "^3.24.2"
+  }
+}
