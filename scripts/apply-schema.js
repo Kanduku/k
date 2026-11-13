@@ -22,6 +22,13 @@ async function main() {
       .map((statement) => statement.trim())
       .filter(Boolean);
     for (const statement of statements) await pool.query(statement);
+    const [columns] = await pool.query("SHOW COLUMNS FROM training_applications LIKE 'referral_from'");
+    if (columns.length === 0) {
+      await pool.query(
+        "ALTER TABLE training_applications ADD COLUMN referral_from VARCHAR(160) NULL AFTER phone"
+      );
+      console.log("Added training_applications.referral_from.");
+    }
     console.log(`Applied ${statements.length} schema statements.`);
   } finally {
     await pool.end();

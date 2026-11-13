@@ -8,7 +8,14 @@ The app uses Express/Node.js with MySQL (not PHP). MySQL can still be managed th
 
 1. Create a MySQL database and user in Hostinger. Grant the user access to the database.
 2. Set `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, and `DB_SSL` in the Hostinger Node.js environment. For local setup, copy `.env.example` to `.env` and set the same values there. Use the database host shown in hPanel; it may differ from your website domain.
-3. Create the tables by importing [`schema.sql`](./schema.sql) in phpMyAdmin, or run `npm run db:schema`. Then run `npm run db:check` to verify connectivity and confirm every expected table is present. These database commands do not require `JWT_SECRET`.
+3. Create the tables by importing [`schema.sql`](./schema.sql) in phpMyAdmin, or run `npm run db:schema`. For an existing database, run `npm run db:schema` to apply missing columns such as `training_applications.referral_from`; it is safe to rerun. If applying the update manually in phpMyAdmin, run:
+
+   ```sql
+   ALTER TABLE training_applications
+     ADD COLUMN referral_from VARCHAR(160) NULL AFTER phone;
+   ```
+
+   Then run `npm run db:check` to verify connectivity, expected tables, and required columns. These database commands do not require `JWT_SECRET`.
 4. Set a random `JWT_SECRET` of at least 32 bytes, allowed frontend origins, and a fresh base64-encoded 32-byte `APPLICANT_DATA_ENCRYPTION_KEY`. Never commit secrets.
 5. Install and start the API:
 

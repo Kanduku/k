@@ -238,11 +238,12 @@ async function importTyped(connection, collection, d, buckets) {
       break;
     case "training_applications":
       await insert(connection,
-        `INSERT INTO training_applications (id, name, email, phone, status, data, created_at, updated_at)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `INSERT INTO training_applications (id, name, email, phone, referral_from, status, data, created_at, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
          ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email), phone=VALUES(phone),
-           status=VALUES(status), data=VALUES(data), updated_at=VALUES(updated_at)`,
-        [id, d.name || "", d.email || "", d.phone || null, d.status || "new", data, created, updated]);
+           referral_from=VALUES(referral_from), status=VALUES(status), data=VALUES(data), updated_at=VALUES(updated_at)`,
+        [id, d.name || "", d.email || "", d.phone || null, d.referral_from || null,
+          d.status || "new", data, created, updated]);
       break;
     case "hr_accounts":
       await insert(connection,

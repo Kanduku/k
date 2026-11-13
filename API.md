@@ -67,6 +67,7 @@ Training application JSON:
   "name": "Example Applicant",
   "email": "applicant@example.com",
   "phone": "+1 555 123 4567",
+  "referral_from": "A colleague",
   "background": "Optional background",
   "goals": "Optional learning goals",
   "availability": "Flexible",
@@ -76,7 +77,7 @@ Training application JSON:
 }
 ```
 
-`name`, `email`, `phone`, `program_ids`, and `contact_consent` are required. Phone must contain at least seven digits and match the accepted phone format. `program_ids` must contain 1–50 distinct catalog IDs. `availability` is `""`, `Weekday`, `Weekend`, or `Flexible`; `duration` is `""`, `1 month`, `3 months`, or `6 months`. `background` and `goals` are optional. Additional JSON fields are retained by this endpoint.
+`name`, `email`, `phone`, `program_ids`, and `contact_consent` are required. Phone must contain at least seven digits and match the accepted phone format. `program_ids` must contain 1–50 distinct catalog IDs. `referral_from` is an optional string of up to 160 characters and is also stored in its own nullable database column. `availability` is `""`, `Weekday`, `Weekend`, or `Flexible`; `duration` is `""`, `1 month`, `3 months`, or `6 months`. `background` and `goals` are optional. Additional JSON fields are retained by this endpoint.
 
 ## Applicant routes
 

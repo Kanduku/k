@@ -137,6 +137,7 @@ router.post(
       name: z.string().trim().min(1).max(160),
       email,
       phone: z.string().trim().regex(/^[0-9+().\-\s]{7,32}$/),
+      referral_from: z.string().trim().max(160).optional().default(""),
       background: z.string().trim().max(160).optional().default(""),
       goals: z.string().trim().max(1200).optional().default(""),
       availability: z.enum(["", "Weekday", "Weekend", "Flexible"]).optional().default(""),
@@ -161,9 +162,9 @@ router.post(
     };
     const id = randomUUID();
     await query(
-      `INSERT INTO training_applications (id, name, email, phone, data)
-       VALUES (?, ?, ?, ?, ?)`,
-      [id, body.name, body.email, body.phone, serializeJson(submission)]
+      `INSERT INTO training_applications (id, name, email, phone, referral_from, data)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [id, body.name, body.email, body.phone, body.referral_from || null, serializeJson(submission)]
     );
     res.status(201).json({ data: { id }, message: "Your training application has been received." });
   })

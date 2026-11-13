@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS training_applications (
   name VARCHAR(160) NOT NULL,
   email VARCHAR(254) NOT NULL,
   phone VARCHAR(40) NULL,
+  referral_from VARCHAR(160) NULL,
   status VARCHAR(32) NOT NULL DEFAULT 'new',
   data JSON NULL,
   created_at DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

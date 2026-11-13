@@ -34,7 +34,16 @@ async function main() {
       console.error("Apply the schema with: npm run db:schema");
       process.exitCode = 1;
     } else {
-      console.log(`Schema check passed (${expectedTables.length} expected tables are present).`);
+      const [trainingColumns] = await pool.query(
+        "SHOW COLUMNS FROM training_applications LIKE 'referral_from'"
+      );
+      if (trainingColumns.length === 0) {
+        console.error("Missing schema column: training_applications.referral_from");
+        console.error("Apply the schema with: npm run db:schema");
+        process.exitCode = 1;
+      } else {
+        console.log(`Schema check passed (${expectedTables.length} expected tables and required columns are present).`);
+      }
     }
   } finally {
     await pool.end();
